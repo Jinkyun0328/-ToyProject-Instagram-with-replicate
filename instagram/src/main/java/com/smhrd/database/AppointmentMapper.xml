@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.model.AppointmentDAO">
+	<insert id="insert_appointment"
+		parameterType="com.smhrd.model.AppointmentVO">
+		INSERT INTO appointment_info
+		(mem_id,
+		service_seq,
+		appointed_at,
+		created_at,
+		approved)
+		VALUES
+		(#{mem_id}, #{service_seq}, #{appointed_at}, sysdate, #{approved})
+	</insert>
+	
+	<select id="getAppointmentBySVC_seqList" resultType="com.smhrd.model.AppointmentVO" parameterType="java.util.List">
+		SELECT *
+        FROM appointment_info
+        WHERE SERVICE_SEQ IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+        	#{item}
+    	</foreach>
+	</select>
+	
+	<delete id="deleteAppointment" parameterType="com.smhrd.model.AppointmentVO">
+		DELETE FROM appointment_info
+		WHERE mem_id = #{mem_id} AND appointed_at = #{appointed_at}
+	</delete>
+</mapper>

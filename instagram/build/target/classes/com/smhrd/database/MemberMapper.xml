@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 1) maper
+  			namespace란?
+  			: mapper파일이 여러개였을 때, 해당 파일을 식별할 수 있는 식별자
+  			: 이름을 정해줄 때, 해당하는 mapper파일과 연결이 되어야하는 DAO클래스 이름을
+  			일치시키는 것을 원칙으로 함 -->
+  
+<mapper namespace="com.smhrd.model.DAO">
+  <!-- mapper 태그 안쪽에 SQL구문을 기술 -->
+  <!-- DAO에서 SqlSession을 사용해서 Mapper파일 안쪽에 있는 SQL 구문을 찾아줄 때 사용하는 값으로 중복 허용하지 않는다. -->
+  <insert id="join" parameterType="com.smhrd.model.MemberVO">
+    insert into WEB_MEMBER (EMAIL, PW, TEL, ADDRESS)
+    values(#{email}, #{pw}, #{tel}, #{address})
+  </insert>
+
+  <!-- select 구문을 수행할 때 되돌려줘야하는 값이 사용자 정의 자료형이라면 무조건 resultType을 지정해줘야한다. -->
+  <select id="login" parameterType = "com.smhrd.model.MemberVO" resultType="com.smhrd.model.MemberVO">
+	SELECT EMAIL, TEL, ADDRESS
+	FROM WEB_MEMBER
+	WHERE EMAIL = #{email}
+	AND PW = #{pw}
+  </select>
+  
+  <select id="selectAll" resultType="com.smhrd.model.MemberVO">
+	SELECT EMAIL, TEL, ADDRESS
+	FROM WEB_MEMBER
+  </select>
+
+	<!-- 
+		resultType 동작 원리
+		>> 나만의 자료형을 resultType으로 명시해놓았다면!
+		>> (1) 기본 생성자를 호출해서 객체 생성(mybatis가 알아서)\
+		>> (2) 조회한 테이블의 컬럼과 일치하는 필드가 있는지 확인
+		>> (3) 해당하는 필드의 setter 메소드를 호출해 값을 채우는 구조
+		* setter 메소드가 없거나, 기본 생성자가 사라져버린 경우 문제가 발생하기도 함!
+		
+		알아두면 좋은 Tip!!
+		>> resultType쪽에는 java에 기본으로 존재하는 자료형은 굳이 명시하지 않아도 된다!!
+	
+	
+	 -->
+
+
+</mapper>

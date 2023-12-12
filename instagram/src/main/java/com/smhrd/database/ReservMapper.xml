@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 1) maper namespace란? : mapper파일이 여러개였을 때, 해당 파일을 식별할 수 있는 식별자 : 이름을 
+	정해줄 때, 해당하는 mapper파일과 연결이 되어야하는 DAO클래스 이름을 일치시키는 것을 원칙으로 함 -->
+
+
+<mapper namespace="com.smhrd.model.ReservDAO">
+
+	<select id="reservList" parameterType="java.lang.String"
+		resultType="com.smhrd.model.ReservVO">
+		SELECT shop_info.shop_seq,shop_info.shop_name,shop_info.shop_tel,appointment_info.appointed_at,appointment_info.approved,shop_info.open_time,shop_info.close_time
+		FROM service_info,appointment_info,nailart_info,shop_info
+		WHERE appointment_info.mem_id = #{receive_memId} AND appointment_info.service_seq = service_info.svc_seq
+		 AND service_info.nailart_seq = nailart_info.nailart_seq
+		 AND shop_info.shop_seq = nailart_info.shop_seq
+	</select>
+
+</mapper>

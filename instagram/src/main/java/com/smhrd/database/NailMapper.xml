@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.model.NailartDAO">
+
+	<!-- ShopMapper.xml -->
+	<select id="getNailInfoAll" parameterType="com.smhrd.model.StaffVO" resultType="com.smhrd.model.NailartVO">
+		SELECT *
+		FROM NAILART_INFO
+		WHERE STAFF_SEQ = #{staff_seq}
+		ORDER BY NAILART_NAME
+	</select>
+
+
+</mapper>

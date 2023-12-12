@@ -1,0 +1,321 @@
+@charset "UTF-8";
+
+
+body {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    color: #0c0c0c;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    overflow: visible;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+}
+
+.centered {
+    display: flex;
+    flex-direction: column;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+}
+
+#top,
+#bottom {
+    max-width: 480px;
+    box-sizing: border-box;
+    padding: 10px 2px 10px 2px;
+}
+
+#top {
+    width: 100%;
+    top: 0;
+    z-index: 100;
+    overflow: hidden;
+    padding: 10px 2px 1px 2px;
+    background-color: rgb(255, 191, 191);
+}
+
+#bottom {
+    margin-bottom: 0px;
+    padding: 2px;
+    overflow-y: auto;
+    width: 100%;
+    max-width: 480px;
+    background-color: rgb(255, 191, 191);
+    border: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+#bottom::-webkit-scrollbar {
+    display: none;
+}
+
+/* 상단바 */
+#topBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 480px;
+    width: 100%;
+    height: 50px;
+    margin: 0;
+}
+
+hr {
+    border: 1px solid #ffffff;
+    margin-bottom: 10px;
+}
+
+#topBar p {
+    margin-left: 15px;
+    font-family: 'Dancing Script', cursive;
+    color: #0c0c0c;
+    font-size: 35px;
+    order: 1;
+    margin-right: 15px;
+}
+
+#menu {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-grow: 1;
+    order: 2;
+}
+
+#menu a {
+    font-family: "Open Sans", sans-serif;
+    font-size: 15px;
+    margin: 5px;
+    text-decoration: none;
+    color: black;
+}
+
+#menu a:hover {
+    color: #F5A9BC;
+    /* 마우스 호버 시 원하는 색상으로 변경하세요 */
+}
+
+#topBar a,
+#topBar button {
+    order: 3;
+    /* 오른쪽 정렬을 위한 순서 변경 */
+}
+
+.fa-user {
+    padding: 20px;
+    color: #555;
+}
+
+.fa-user:hover {
+    color: #F5A9BC;
+    /* 바꿀 색상 */
+}
+
+/* 검색창 */
+form {
+    text-align: center;
+}
+
+.search {
+    display: inline-block;
+    text-align: center;
+    width: 300px;
+    height: 40px;
+    padding: 20px;
+}
+
+input[type="text"] {
+    padding: 5px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.search button {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+}
+
+.search button img {
+    width: 24px;
+    height: 24px;
+    padding: 5px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+/*원하는 가게 선택, 정렬기준 영역*/
+.subTop {
+    display: flex;
+    justify-content: space-between;
+    max-width: 480px;
+    height: auto;
+    width: 100%;
+    padding: 2px;
+}
+
+.subTop>* {
+    font-family: 'EASTARJET-Medium';
+    font-weight: 600;
+    margin: 5px;
+    color: #343434;
+    font-size: 12px;
+}
+
+#ment {
+    max-width: 480px;
+    width: 50%;
+    flex-grow: 1;
+    padding-left: 20%;
+}
+
+#sortRange {
+    margin-right: 0px;
+    flex-shrink: 0;
+}
+
+/*가게 리스트*/
+.shops {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 480px;
+    height: auto;
+    width: 100%;
+    background-color: rgb(255, 191, 191);
+    padding: 2px;
+}
+
+/*가게 목록 전체*/
+#shop {
+    display: grid;
+    place-items: center;
+    align-items: center;
+    max-width: 480px;
+    width: 70%;
+    height: auto;
+    padding: 5px;
+    margin-top: 0px;
+    background-color: rgb(255, 191, 191);
+}
+
+/*각 가게*/
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    margin: 3px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+li:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+/* 가게이미지 영역*/
+.left {
+    max-width: 480px;
+    width: 40%;
+    height: 110px;
+    padding: 5px;
+    background-color: transparent;
+}
+
+/*각 가게이미지*/
+li img {
+    border-radius: 10%;
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+}
+
+/* 각 가게소개 영역*/
+.right {
+    display: flex;
+    flex-direction: column;
+    max-width: 480px;
+    width: 60%;
+    height: 90px;
+    padding: 15px;
+    margin: 0;
+    background-color: transparent;
+    align-items: flex-start;
+}
+
+.right>* {
+    padding: 1px;
+    margin-left: 10px;
+}
+
+.shopName {
+    font-family: 'EASTARJET-Medium';
+    font-size: 15px;
+    color: #7e7e7e;
+    font-weight: 600;
+}
+
+.location,
+.shopNumber,
+.openingtime {
+    font-family: 'EASTARJET-Medium';
+    font-size: 13px;
+    color: #000;
+}
+
+.fa-phone,
+.fa-location-arrow,
+.fa-clock-o {
+    padding: 2px;
+    margin: 2px;
+    color: #555;
+}
+
+.openingtime {
+    display: flex;
+    align-items: center;
+}
+
+
+#scrollTopButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    /* 일단은 숨겨둡니다. */
+    /* 다른 스타일링 속성들 */
+    background-color: #F5A9BC;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}

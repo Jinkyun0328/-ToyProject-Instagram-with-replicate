@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.model.ServiceDAO">
+	<select id="select_serviceSeq" resultType="java.lang.Double" parameterType="com.smhrd.model.ServiceVO">
+		SELECT svc_seq
+		FROM service_info
+		WHERE staff_seq = #{staff_seq}
+        AND nailart_seq = #{nailart_seq}
+	</select>
+	
+	<select id="select_serviceSeqList" resultType="java.lang.Double" parameterType="com.smhrd.model.ServiceVO">
+        SELECT SVC_SEQ
+        FROM service_info
+        WHERE staff_seq = #{staff_seq}
+    </select>
+</mapper>

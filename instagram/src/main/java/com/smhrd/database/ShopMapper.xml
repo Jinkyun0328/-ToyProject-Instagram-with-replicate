@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.model.ShopDAO">
+	<update id="updateShopImg"
+		parameterType="com.smhrd.model.ShopVO">
+		update shop_info
+		set shop_img = #{shop_img}
+		where mem_id = #{mem_id}
+	</update>
+	<!-- ShopMapper.xml -->
+	<select id="shop_select" parameterType="com.smhrd.model.ShopVO"
+		resultType="com.smhrd.model.ShopVO">
+		SELECT *
+		FROM SHOP_INFO
+		WHERE MEM_ID = #{mem_id}
+	</select>
+
+	<select id="shopSelectAll"	
+		resultType="com.smhrd.model.ShopVO">
+		SELECT *
+		FROM shop_info
+	</select>
+	
+	<select id="getShopInfoAll" resultType="com.smhrd.model.ShopVO">
+		SELECT *
+		FROM SHOP_INFO
+		ORDER BY SHOP_NAME
+	</select>
+	
+	<insert id="shop_reg"
+		parameterType="com.smhrd.model.ShopVO">
+		INSERT INTO SHOP_INFO (SHOP_NAME,SHOP_TEL, LAT,
+		LNG, OPEN_TIME, CLOSE_TIME, SHOP_STATUS,MEM_ID,SHOP_ADDR1,SHOP_ADDR2)
+		VALUES (#{shop_name, jdbcType=VARCHAR}, #{shop_tel}, #{lat}, #{lng}, #{open_time},
+		#{close_time}, 'O', #{mem_id},#{shop_addr1},#{shop_addr2})
+	</insert>
+</mapper>

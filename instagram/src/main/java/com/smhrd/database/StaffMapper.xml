@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.model.StaffDAO">
+
+	<!-- ShopMapper.xml -->
+	<select id="getStaffList"
+		parameterType="com.smhrd.model.StaffVO"
+		resultType="com.smhrd.model.StaffVO">
+		SELECT *
+		FROM STAFF_INFO
+		WHERE shop_seq = #{shop_seq}
+	</select>
+	
+	<select id="getStaffList_shoPage"
+		parameterType="com.smhrd.model.StaffVO"
+		resultType="com.smhrd.model.StaffVO">
+		SELECT *
+		FROM STAFF_INFO
+		WHERE mem_id = #{mem_id}
+	</select>
+
+	<insert id="add_staff" parameterType="com.smhrd.model.StaffVO">
+		INSERT INTO staff_info (shop_seq, mem_id, hired_at, staff_name)
+    	VALUES (#{shop_seq}, #{mem_id}, sysdate, #{staff_name})
+	</insert>
+
+	<delete id="del_staff" parameterType="com.smhrd.model.StaffVO">
+		DELETE FROM staff_info WHERE staff_seq = #{staff_seq}
+	</delete>
+	
+	<select id="getStaffInfoAll" parameterType="com.smhrd.model.ShopVO" resultType="com.smhrd.model.StaffVO">
+		SELECT STAFF_NAME, STAFF_SEQ, SHOP_SEQ, MEM_ID
+		FROM STAFF_INFO
+		WHERE SHOP_SEQ = #{shop_seq}
+		ORDER BY Staff_Name
+	</select>
+
+</mapper>

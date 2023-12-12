@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 1) maper namespace란? : mapper파일이 여러개였을 때, 해당 파일을 식별할 수 있는 식별자 : 이름을 
+	정해줄 때, 해당하는 mapper파일과 연결이 되어야하는 DAO클래스 이름을 일치시키는 것을 원칙으로 함 -->
+
+
+<mapper namespace="com.smhrd.model.DAO">
+	<!-- mapper 태그 안쪽에 SQL구문을 기술 -->
+	<!-- DAO에서 SqlSession을 사용해서 Mapper파일 안쪽에 있는 SQL 구문을 찾아줄 때 사용하는 값으로 중복 허용하지 
+		않는다. -->
+	<insert id="member_join"
+		parameterType="com.smhrd.model.MemberVO">
+		insert into MEMBER_INFO (MEM_ID, MEM_PW, MEM_NAME,
+		MEM_PHONE, MEM_EMAIL,
+		MEM_ADDR1, MEM_ADDR2, JOINED_AT, MEM_TYPE)
+		values(#{mem_id}, #{mem_pw}, #{mem_name}, #{mem_phone}, #{mem_email},
+		#{mem_addr1},
+		#{mem_addr2}, SYSTIMESTAMP, #{mem_type})
+
+	</insert>
+	<!-- select 구문을 수행할 때 되돌려줘야하는 값이 사용자 정의 자료형이라면 무조건 resultType을 지정해줘야한다. -->
+	<select id="getMemberInfo"
+		parameterType="com.smhrd.model.MemberVO"
+		resultType="com.smhrd.model.MemberVO">
+		SELECT *
+		FROM MEMBER_INFO
+		WHERE MEM_ID = #{mem_id}
+	</select>
+
+	<!-- select 구문을 수행할 때 되돌려줘야하는 값이 사용자 정의 자료형이라면 무조건 resultType을 지정해줘야한다. -->
+	<select id="member_login"
+		parameterType="com.smhrd.model.MemberVO"
+		resultType="com.smhrd.model.MemberVO">
+		SELECT *
+		FROM MEMBER_INFO
+		WHERE MEM_ID = #{mem_id}
+		AND MEM_PW
+		= #{mem_pw}
+	</select>
+
+	<select id="member_selectAll"
+		resultType="com.smhrd.model.MemberVO">
+		SELECT *
+		FROM MEMBER_INFO
+	</select>
+
+	<select id="shop management"
+		parameterType="com.smhrd.model.MemberVO"
+		resultType="com.smhrd.model.MemberVO">
+		SELECT MEM_ID
+		FROM MEMBER_INFO
+		WHERE MEM_ID = #{mem_id}
+	</select>
+
+
+	<select id="member_emailCheck"
+		parameterType="com.smhrd.model.MemberVO"
+		resultType="com.smhrd.model.MemberVO">
+		SELECT MEM_ID
+		FROM MEMBER_INFO
+		WHERE MEM_ID = #{mem_id}
+	</select>
+
+	<update id="member_update"
+		parameterType="com.smhrd.model.MemberVO">
+		UPDATE MEMBER_INFO
+		SET MEM_PW = #{mem_pw},
+		MEM_PHONE =
+		#{mem_phone},
+		MEM_ADDR1 = #{mem_addr1},
+		MEM_ADDR2 = #{mem_addr2},
+		MEM_EMAIL = #{mem_email},
+		MEM_NAME = #{mem_name}
+		WHERE MEM_ID =
+		#{mem_id}
+	</update>
+
+	<insert id="staff_join" parameterType="com.smhrd.model.StaffVO">
+		insert into STAFF_INFO
+		(STAFF_SEQ, SHOP_SEQ, MEM_ID, HIRED_AT)
+		values(#{staff_seq},
+		#{shop_seq}, #{mem_id}, SYSTIMESTAMP)
+	</insert>
+
+	<select id="staff_update"
+		parameterType="com.smhrd.model.StaffVO">
+		UPDATE STAFF_INFO
+		SET STAFF_SEQ = #{staff_seq},
+		SHOP_SEQ =
+		#{shop_seq},
+		WHERE MEM_ID = #{mem_id}
+	</select>
+
+	<insert id="review_join"
+		parameterType="com.smhrd.model.ReviewVO">
+		insert into REVIEW_INFO (REVIEW_SEQ, SHOP_SEQ,
+		REVIEW_CONTENT, MEM_ID,
+		CREATED_AT, REVIEW_VIEWS, REVIEW_LIKES,
+		REVIEW_RATING)
+		values(#{review_seq}, #{shop_seq}, #{review_content},
+		#{mem_id},
+		SYSTIMESTAMP, #{review_views}, #{review_likes},
+		#{review_rating})
+	</insert>
+
+	<select id="review_update"
+		parameterType="com.smhrd.model.ReviewVO">
+		UPDATE REVIEW_INFO
+		SET REVIEW_SEQ = #{review_seq},
+		REVIEW_CONTENT = #{review_content},
+		REVIEW_VIEWS = #{review_views},
+		REVIEW_LIKES = #{review_likes},
+		REVIEW_RATING = #{review_rating}
+		WHERE
+		MEM_ID = #{mem_id}
+	</select>
+
+
+
+
+	<insert id="shop_join" parameterType="com.smhrd.model.ShopVO">
+		insert into SHOP_INFO
+		(SHOP_SEQ, SHOP_NAME, SHOP_TEL, LAT, LNG, OPEN_TIME,
+		CLOSE_TIME,
+		SHOP_STATUS, MEM_ID)
+		values(#{shop_seq}, #{shop_name}, #{shop_tel},
+		#{lat}, #{lng}, #{open_time},
+		#{close_time}, #{shop_status}, #{mem_id})
+	</insert>
+
+	<select id="shop_update" parameterType="com.smhrd.model.ShopVO">
+		UPDATE SHOP_INFO
+		SET
+		SHOP_NAME = #{shop_name},
+		SHOP_TEL = #{shop_tel},
+		LAT = #{lat},
+		LNG =
+		#{lng},
+		OPEN_TIME = #{open_time} ,
+		CLOSE_TIME = #{close_time},
+		SHOP_STATUS = #{shop_status}
+		WHERE MEM_ID = #{mem_id}
+	</select>
+
+	<insert id="nailart_join"
+		parameterType="com.smhrd.model.NailartVO">
+		insert into NAILART_INFO (NAILART_SEQ, NAILART_NAME,
+		NAILART_IMG, SHOP_SEQ,
+		NAILART_DESC)
+		values(#{nailart_seq},
+		#{nailart_name}, #{nailart_img}, #{shop_seq}, #{nailart_desc})
+	</insert>
+
+	<select id="nailart_update"
+		parameterType="com.smhrd.model.NailartVO">
+		UPDATE NAILART_INFO
+		SET NAILART_NAME = #{nailart_name},
+		NAILART_IMG = #{nailart_img},
+		NAILART_DESC = #{nailart_desc}
+	</select>
+
+	<insert id="service_join"
+		parameterType="com.smhrd.model.ServiceVO">
+		insert into SERVICE_INFO (SVC_SEQ, STAFF_SEQ,
+		NAILART_SEQ)
+		values(#{svc.seq}, #{staff_seq}, #{nailart_seq})
+	</insert>
+
+	<insert id="appointment_join"
+		parameterType="com.smhrd.model.AppointmentVO">
+		insert into APPOINTMENT_INFO (APPOINT_SEQ, MEM_ID,
+		SERVICE_SEQ,
+		APPOINTED_AT, CREATED_AT, APPROVED)
+		values(#{appoint_seq},
+		#{mem_id}, #{service_seq}, SYSTIMESTAMP, SYSTIMESTAMP, #{approved})
+	</insert>
+
+	<select id="appointment_update"
+		parameterType="com.smhrd.model.AppointmentVO">
+		UPDATE APPOINTMENT_INFO
+		SET APPOINTED_AT =
+		#{appointed_at},
+		APPROVED = #{approved}
+		WHERE MEM_ID = #{mem_id}
+	</select>
+
+	<select id="selectId" parameterType="com.smhrd.model.MemberVO"
+		resultType="com.smhrd.model.MemberVO">
+		SELECT MEM_ID
+		FROM MEMBER_INFO
+		WHERE MEM_ID = #{mem_id}
+	</select>
+
+	<update id="update_state" parameterType="java.lang.String">
+		UPDATE MEMBER_INFO
+		SET
+		MEM_TYPE = 's'
+		WHERE MEM_ID = #{mem_id}
+	</update>
+	<!-- resultType 동작 원리 >> 나만의 자료형을 resultType으로 명시해놓았다면! >> (1) 기본 생성자를 호출해서 
+		객체 생성(mybatis가 알아서)\ >> (2) 조회한 테이블의 컬럼과 일치하는 필드가 있는지 확인 >> (3) 해당하는 필드의 
+		setter 메소드를 호출해 값을 채우는 구조 * setter 메소드가 없거나, 기본 생성자가 사라져버린 경우 문제가 발생하기도 함! 
+		알아두면 좋은 Tip!! >> resultType쪽에는 java에 기본으로 존재하는 자료형은 굳이 명시하지 않아도 된다!! -->
+
+
+</mapper>
